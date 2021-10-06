@@ -11,12 +11,12 @@ import { MdEmail, MdLock } from "react-icons/md";
 
 export default function Register() {
   return (
-    <div className="flex justify-center items-center h-screen">
-      <div className="border rounded-lg w-11/12 md:w-5/12 p-9">
-        <div className="flex mb-6">
+    <div className="flex justify-center p-5 md:items-center h-screen">
+      <div className="md:border md:rounded-lg  md:w-1/2 md:p-9">
+        <div className="flex mb-10">
           <img src={logo} alt="logo" />
         </div>
-        <h1 className="mb-4 text-lg ">
+        <h1 className="mb-4 mt-20 text-lg ">
           Join thousands of learners from around the world
         </h1>
         <p style={{ color: "#333333" }} className="mb-5 text-gray-600 text-sm">
@@ -39,7 +39,7 @@ export default function Register() {
               <input
                 type="password"
                 placeholder="Password"
-                className="border mb-3 p-2 pl-8 text-sm rounded"
+                className="border mb-4 p-2 pl-8 text-sm rounded"
               />
               <div className="absolute top-2.5 left-2">
                 <MdLock color="#828282" />
