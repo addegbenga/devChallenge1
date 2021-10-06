@@ -1,13 +1,8 @@
-import logo1 from "./assets/logo.svg";
 import "./App.css";
+import Routes from "./route/Routes";
 
 function App() {
-  return (
-    <div className="bg-red-100">
-      <h1>Hello</h1>
-      <img src={logo1} alt="alt"/>
-    </div>
-  );
+  return <Routes />;
 }
 
 export default App;

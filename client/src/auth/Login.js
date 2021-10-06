@@ -1,9 +1,75 @@
-import React from 'react'
+import React from "react";
+import logo from "../assets/logo.svg";
+import { Link } from "react-router-dom";
+import {
+  AiOutlineGoogle,
+  AiFillFacebook,
+  AiOutlineTwitter,
+  AiFillGithub,
+} from "react-icons/ai";
+import { MdEmail, MdLock } from "react-icons/md";
 
 export default function Login() {
-    return (
-        <div>
-            Login Page
+  return (
+    <div className="flex justify-center items-center h-screen">
+      <div className="border rounded-lg w-11/12 md:w-5/12 p-9">
+        <div className="flex mb-6">
+          <img src={logo} alt="logo" />
         </div>
-    )
+        <h1 className="mb-6">Login</h1>
+        <div>
+          <form>
+            <div className="grid relative">
+              <input
+                type="text"
+                placeholder="Email"
+                className="border mb-3 p-2 pl-8 text-sm rounded"
+              />
+              <div className="absolute top-2.5 left-2">
+                <MdEmail color="#828282" />
+              </div>
+            </div>
+            <div className="grid relative">
+              <input
+                type="password"
+                placeholder="Password"
+                className="border mb-3 p-2 pl-8 text-sm rounded"
+              />
+              <div className="absolute top-2.5 left-2">
+                <MdLock color="#828282" />
+              </div>
+            </div>
+            <button className="w-full text-white text-sm font-semibold p-1 rounded mb-5  bg-blue-500">
+              Login
+            </button>
+            <p style={{ color: "#828282" }} className="text-xs text-center">
+              or continue with these social profile
+            </p>
+            <div className="flex mt-5 justify-center">
+              <div className="p-2 border mr-3 rounded-full">
+                <AiOutlineGoogle size={20} color="#828282" />
+              </div>
+              <div className="p-2 border mr-3 rounded-full">
+                <AiFillFacebook size={20} color="#828282" />
+              </div>
+              <div className="p-2 border mr-3 rounded-full">
+                <AiOutlineTwitter size={20} color="#828282" />
+              </div>
+              <div className="p-2 border rounded-full">
+                <AiFillGithub size={20} color="#828282" />
+              </div>
+            </div>
+            <div className="mt-5 text-center">
+              <p className="text-xs" style={{ color: "#828282" }}>
+                Already a member?{" "}
+                <span className="text-blue-500">
+                  <Link to="/register">Register</Link>
+                </span>
+              </p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
 }
