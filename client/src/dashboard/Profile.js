@@ -16,7 +16,10 @@ export default function Profile() {
           <div className="flex justify-between md:border-b mb-10 md:mb-2 px-3 md:py-4 items-center md:px-8 ">
             <div className="flex flex-col ">
               <h1 className="text-xl">Profile</h1>
-              <p style={{ color: "#828282" }} className="text-sm w-40 md:w-full">
+              <p
+                style={{ color: "#828282" }}
+                className="text-sm w-40 md:w-full"
+              >
                 Some info may be visible to other people
               </p>
             </div>
@@ -27,26 +30,26 @@ export default function Profile() {
               Edit
             </button>
           </div>
-          <div className="h-80 overflow-y-scroll">
+          <div className="md:h-80 md:overflow-y-scroll">
             <div className="flex justify-between items-center border-b pb-2 px-3 md:px-8 ">
-              <h1 style={{ color: "#828282" }}>PHOTO</h1>
+              <h2 style={{ color: "#828282", fontSize: "13px" }}>PHOTO</h2>
               <img src={avatar} className="h-20 w-20 rounded-lg" alt="avt" />
             </div>
             <div className="flex py-6 border-b justify-between px-3 md:px-8  ">
-              <h1 style={{ color: "#828282" }}>NAME</h1>
-              <p>Xanthe Neal</p>
+              <h2 style={{ color: "#828282", fontSize: "13px" }}>NAME</h2>
+              <p className="text-sm"> Xanthe Neal</p>
             </div>
             <div className="flex border-b py-6 justify-between px-3 md:px-8 ">
-              <h1 style={{ color: "#828282" }}>BIO</h1>
-              <p>I am a software dedevCompetition jd gjh</p>
+              <h2 style={{ color: "#828282", fontSize: "13px" }}>BIO</h2>
+              <p className="text-sm truncate w-44">I am a software developer with intrest with dev challenge</p>
             </div>
             <div className="flex py-6 justify-between border-b px-3 md:px-8 ">
-              <h1 style={{ color: "#828282" }}>EMAIL</h1>
-              <p>xanthe.neal@gmail.com</p>
+              <h2 style={{ color: "#828282", fontSize: "13px" }}>EMAIL</h2>
+              <p className="text-sm">xanthe.neal@gmail.com</p>
             </div>
             <div className="flex py-6 justify-between border-b px-3 md:px-8 ">
-              <h1 style={{ color: "#828282" }}>PASSWORD</h1>
-              <p>*************</p>
+              <h2 style={{ color: "#828282", fontSize: "13px" }}>PASSWORD</h2>
+              <p className="text-sm">*************</p>
             </div>
           </div>
         </div>
