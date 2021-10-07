@@ -6,8 +6,6 @@ import { HiUserCircle, HiUsers } from "react-icons/hi";
 import { RiLoginBoxLine } from "react-icons/ri";
 import avatar from "../assets/avatar.jpg";
 import { Popover, Transition } from "@headlessui/react";
-import "./style.css";
-
 export default function Navbar() {
   return (
     <div className="fixed w-full bg-white z-10 top-0 ">
@@ -15,31 +13,22 @@ export default function Navbar() {
         <div className="flex justify-between w-11/12 m-auto">
           <img src={logo} alt="logo" />
           <div className="flex items-center relative">
-            <img
-              src={avatar}
-              className="w-6 h-6 hidden md:block rounded mr-1"
-              alt="avatar"
-            />
-            <div className="flex items-center hidden md:block">
-              <p className="text-xs">Xamarin star</p>
-            </div>
             <Popover>
               {({ open }) => (
                 <>
-                  <Popover.Button className="ml-2 md:absolute ">
+                  <Popover.Button className="ml-2 flex items-center  ">
                     <img
                       src={avatar}
-                      className="w-6 h-6 mobile-toggle rounded mr-1"
+                      className="w-6 h-6 rounded mr-1"
                       alt="avatar"
                     />
-                  </Popover.Button>
-
-                  <div className="desktop-toggle">
-                    <Popover.Button className="ml-2 ">
+                    <div className="flex items-center hidden md:block">
+                      <p className="text-xs">Xamarin star</p>
+                    </div>
+                    <div className="hidden md:block">
                       {open ? <AiFillCaretUp /> : <AiFillCaretDown />}
-                    </Popover.Button>
-                  </div>
-
+                    </div>
+                  </Popover.Button>
                   <Transition
                     as={Fragment}
                     enter="transition ease-out duration-200"
