@@ -25,8 +25,12 @@ export default function Navbar() {
                     <div className="flex items-center hidden md:block">
                       <p className="text-xs">Xamarin star</p>
                     </div>
-                    <div className="hidden md:block">
-                      {open ? <AiFillCaretUp /> : <AiFillCaretDown />}
+                    <div
+                      className={`${
+                        open ? "hidden md:block transform rotate-180 transition duration-500" : "hidden md:block transform rotate-360 transition duration-500"
+                      }`}
+                    >
+                      <AiFillCaretDown />
                     </div>
                   </Popover.Button>
                   <Transition
