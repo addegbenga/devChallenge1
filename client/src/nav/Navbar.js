@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import logo from "../assets/logo.svg";
 import { Link } from "react-router-dom";
-import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
+import { AiFillCaretDown} from "react-icons/ai";
 import { HiUserCircle, HiUsers } from "react-icons/hi";
 import { RiLoginBoxLine } from "react-icons/ri";
 import avatar from "../assets/avatar.jpg";
