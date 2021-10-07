@@ -1,5 +1,6 @@
 import React from "react";
 import Navbar from "../nav/Navbar";
+import { Link } from "react-router-dom";
 import avatar from "../assets/avatar.jpg";
 export default function Profile() {
   return (
@@ -27,7 +28,7 @@ export default function Profile() {
               style={{ color: "#828282" }}
               className=" px-5 md:px-8 md:py-2 py-1 border rounded text-sm"
             >
-              Edit
+              <Link to="/edit"> Edit</Link>
             </button>
           </div>
           <div className="md:h-80 md:overflow-y-scroll">
@@ -41,7 +42,9 @@ export default function Profile() {
             </div>
             <div className="flex border-b py-6 justify-between px-3 md:px-8 ">
               <h2 style={{ color: "#828282", fontSize: "13px" }}>BIO</h2>
-              <p className="text-sm truncate w-44">I am a software developer with intrest with dev challenge</p>
+              <p className="text-sm truncate w-44">
+                I am a software developer with intrest with dev challenge
+              </p>
             </div>
             <div className="flex py-6 justify-between border-b px-3 md:px-8 ">
               <h2 style={{ color: "#828282", fontSize: "13px" }}>EMAIL</h2>
