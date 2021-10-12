@@ -12,7 +12,10 @@ dotenv.config()
 CONNECTDB()
 
 app.use(express.json())
-app.use(cors('*'))
+
+// enable cors
+app.use(cors())
+app.options('*', cors())
 app.use(morgan('tiny'))
 
 app.use('/v1', require('./src/routes/v1'))
