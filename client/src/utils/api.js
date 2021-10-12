@@ -28,7 +28,6 @@ import store from "../store";
 import { LOGOUT_USER } from "../actions/types";
 
 const api = axios.create({
-  // baseURL: '/api',
   headers: {
     "Content-Type": "application/json",
   },
