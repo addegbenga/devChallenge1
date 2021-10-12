@@ -9,6 +9,9 @@ import {
   CLEAR_ALERT,
   EDIT_USER_DETAILS,
   EDIT_USER_DETAILS_ERROR,
+  GOOGLE_LOGIN,
+  GOOGLE_LOGIN_ERROR,
+  LOGIN_USER_ERROR,
 } from "../actions/types";
 
 const initialState = {
@@ -34,6 +37,22 @@ export const authReducer = (state = initialState, action) => {
         ...state,
         user: action.payload,
         pageloading: false,
+        apiloading:false,
+      };
+    case GOOGLE_LOGIN:
+      return {
+        ...state,
+        ...action.payload,
+        isAuthenticated: true,
+        apiloading: false,
+        pageloading: false,
+      };
+
+    case GOOGLE_LOGIN_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+        pageloading: false,
       };
 
     case EDIT_USER_DETAILS:
@@ -43,20 +62,6 @@ export const authReducer = (state = initialState, action) => {
         apiloading: false,
         pageloading: false,
       };
-    case EDIT_USER_DETAILS_ERROR:
-      return {
-        ...state,
-        error: action.payload,
-        apiloading: false,
-        pageloading: false,
-      };
-    case REGISTER_ERROR:
-      return {
-        ...state,
-        apiloading: false,
-        pageloading: false,
-        error: action.payload,
-      };
     case LOGIN_USER:
       return {
         ...state,
@@ -65,6 +70,16 @@ export const authReducer = (state = initialState, action) => {
         apiloading: false,
         pageloading: false,
       };
+    case EDIT_USER_DETAILS_ERROR:
+    case LOGIN_USER_ERROR:
+    case REGISTER_ERROR:
+      return {
+        ...state,
+        error: action.payload,
+        apiloading: false,
+        pageloading: false,
+      };
+
     case LOGOUT_USER:
     case LOAD_USER_ERROR:
       return {
@@ -86,6 +101,7 @@ export const authReducer = (state = initialState, action) => {
         error: null,
         user: null,
         pageloading: false,
+        apiloading:false
       };
     default:
       return state;

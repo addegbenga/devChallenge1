@@ -1,12 +1,8 @@
 import React from "react";
 import logo from "../assets/logo.svg";
 import { Link, Redirect } from "react-router-dom";
-import {
-  AiOutlineGoogle,
-  AiFillFacebook,
-  AiOutlineTwitter,
-  AiFillGithub,
-} from "react-icons/ai";
+import Google from "./GoogleLogin";
+import { AiFillFacebook, AiOutlineTwitter, AiFillGithub } from "react-icons/ai";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { MyTextInput } from "../form/myForm";
@@ -60,13 +56,13 @@ export default function Login() {
                 .max(20, "Must be 20 characters or less")
                 .required("Required"),
             })}
-            onSubmit={(values, { onReset }) => {
+            onSubmit={(values, actions) => {
               const data = {
                 email: values.email,
                 password: values.password,
               };
               dispatch(loginUser(data));
-              onReset({ values: "" });
+              actions.resetForm();
             }}
           >
             <Form>
@@ -93,11 +89,11 @@ export default function Login() {
                 </div>
               </div>
               {loading ? (
-                <button className="w-full text-white text-sm font-semibold p-1 rounded mb-5  bg-blue-500">
+                <button type="button" className="w-full text-white text-sm font-semibold p-1 rounded mb-5  bg-blue-500">
                   Loading...
                 </button>
               ) : (
-                <button className="w-full text-white text-sm font-semibold p-1 rounded mb-5  bg-blue-500">
+                <button type="button"  className="w-full text-white text-sm font-semibold p-1 rounded mb-5  bg-blue-500">
                   Login
                 </button>
               )}
@@ -106,15 +102,14 @@ export default function Login() {
                 or continue with these social profile
               </p>
               <div className="flex mt-5 justify-center">
-                <div className="p-2 border mr-3 rounded-full">
-                  <AiOutlineGoogle size={20} color="#828282" />
-                </div>
+                <Google />
                 <div className="p-2 border mr-3 rounded-full">
                   <AiFillFacebook size={20} color="#828282" />
                 </div>
                 <div className="p-2 border mr-3 rounded-full">
                   <AiOutlineTwitter size={20} color="#828282" />
                 </div>
+
                 <div className="p-2 border rounded-full">
                   <AiFillGithub size={20} color="#828282" />
                 </div>
@@ -123,7 +118,7 @@ export default function Login() {
                 <p className="text-xs" style={{ color: "#828282" }}>
                   Dont have an account yet?{" "}
                   <span className="text-blue-500">
-                    <Link to="/register">Register</Link>
+                    <Link to="/">Register</Link>
                   </span>
                 </p>
               </div>

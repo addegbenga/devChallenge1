@@ -10,7 +10,7 @@ export default function Routes() {
   return (
     <Switch>
       <Route exact path="/login" component={Login} />
-      <Route exact path="/register" component={Register} />
+      <Route exact path="/" component={Register} />
       <PrivateRoutes exact path="/profile" component={Profile} />
       <PrivateRoutes exact path="/edit" component={EditProfile} />
     </Switch>

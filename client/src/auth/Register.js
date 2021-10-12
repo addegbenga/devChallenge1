@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import logo from "../assets/logo.svg";
 import { Link } from "react-router-dom";
 import { CLEAR_ALERT } from "../actions/types";
+import Google from "./GoogleLogin";
 import {
-  AiOutlineGoogle,
   AiFillFacebook,
   AiOutlineTwitter,
   AiFillGithub,
@@ -126,9 +126,8 @@ export default function Register() {
                 or continue with these social profile
               </p>
               <div className="flex mt-5 justify-center">
-                <div className="p-2 border mr-3 rounded-full">
-                  <AiOutlineGoogle size={20} color="#828282" />
-                </div>
+                <Google />
+
                 <div className="p-2 border mr-3 rounded-full">
                   <AiFillFacebook size={20} color="#828282" />
                 </div>

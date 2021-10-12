@@ -17,9 +17,13 @@ const userModel = new mongoose.Schema(
     bio: String,
     phone: String,
     avatarUrl: String,
-    avatarId: String
-
+    avatarId: String,
+    google: {
+      type: Boolean,
+      default: false
+    }
   },
+
   {
     timestamps: true
   }
@@ -28,7 +32,9 @@ const userModel = new mongoose.Schema(
 // Encrypt password using bcrypt
 userModel.pre('save', async function (next) {
   const salt = await bcrypt.genSalt(10)
-  this.password = await bcrypt.hash(this.password, salt)
+  if (this.password) {
+    this.password = await bcrypt.hash(this.password, salt)
+  }
 })
 // { document: true, query: false }).
 

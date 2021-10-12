@@ -3,12 +3,14 @@ import {
   REGISTER_USER,
   LOGIN_USER,
   LOGOUT_USER,
-  LOGIN_ERROR,
+  LOGIN_USER_ERROR,
   LOAD_USER,
   LOAD_USER_ERROR,
   EDIT_USER_DETAILS,
   EDIT_USER_DETAILS_ERROR,
   LOADING,
+  GOOGLE_LOGIN,
+  GOOGLE_LOGIN_ERROR,
 } from "./types";
 
 import { api } from "../utils/api";
@@ -17,7 +19,6 @@ const END_POINT = "http://localhost:5000/v1/auth";
 
 export const loadUser = () => async (dispatch) => {
   try {
-
     const response = await api.get(`${END_POINT}/me`);
 
     dispatch({
@@ -27,7 +28,23 @@ export const loadUser = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: LOAD_USER_ERROR,
-      payload: error,
+      payload: error.response,
+    });
+  }
+};
+
+export const googleLogin = (body) => async (dispatch) => {
+  try {
+    const response = await api.post(`${END_POINT}/google`, body);
+    dispatch({
+      type: GOOGLE_LOGIN,
+      payload: response.data,
+    });
+    dispatch(loadUser());
+  } catch (error) {
+    dispatch({
+      type: GOOGLE_LOGIN_ERROR,
+      payload: error.response,
     });
   }
 };
@@ -45,7 +62,7 @@ export const loginUser = (body) => async (dispatch) => {
     dispatch(loadUser());
   } catch (error) {
     dispatch({
-      type: LOGIN_ERROR,
+      type: LOGIN_USER_ERROR,
       payload: error.response.data,
     });
   }

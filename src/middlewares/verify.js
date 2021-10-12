@@ -16,8 +16,9 @@ const auth = async (req, res, next) => {
   try {
     const decoded = jwt.verify(jwttoken, process.env.JWT_SECRET)
     req.user = await User.findById(decoded._id)
+    console.log(req.user)
     if (!req.user) {
-      return res.json('user doest not exist')
+      return res.status(401).json('user doest not exist')
     }
     next()
   } catch (err) {

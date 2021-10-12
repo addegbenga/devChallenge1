@@ -1,6 +1,10 @@
+/* eslint-disable camelcase */
 const User = require('../models/User')
 const { sendTokenResponse } = require('../middlewares/utils')
 const bcrypt = require('bcryptjs')
+const { google } = require('googleapis')
+
+const client = new google.auth.OAuth2(process.env.GOOGLE_CLIENT_ID)
 
 exports.registerUser = async (req, res) => {
   try {
@@ -12,8 +16,7 @@ exports.registerUser = async (req, res) => {
     await User.create(args)
     return res.json({ msg: 'account succesfully created' })
   } catch (error) {
-    console.log(error)
-    return res.status(500).json('Something went wrong')
+    return res.status(500).json(error + 'Something went wrong')
   }
 }
 
@@ -25,15 +28,18 @@ exports.loginUser = async (req, res) => {
     if (!user) {
       return res.status(400).json('No user with this account found')
     }
+
     // check if password matches
-    const isMatch = await user.matchPassword(args.password)
+    let isMatch
+    if (user.password) {
+      isMatch = await user.matchPassword(args.password)
+    }
 
     if (!isMatch) {
       return res.status(400).json('invalid credentials')
     }
     sendTokenResponse(user, 200, res)
   } catch (err) {
-    console.error(err.message)
     res.status(500).send(err + ' Server error')
   }
 }
@@ -42,8 +48,35 @@ exports.getAuthUser = async (req, res) => {
   try {
     return res.json(req.user)
   } catch (error) {
-    console.log(error)
     return res.json(error)
+  }
+}
+// google login
+exports.googleLogin = async (req, res) => {
+  try {
+    const { tokenId } = req.body
+
+    const verify = await client.verifyIdToken({
+      idToken: tokenId,
+      audience: process.env.GOOGLE_CLIENT_ID
+    })
+    console.log(verify)
+    const { email_verified, email } = verify.payload
+
+    if (!email_verified) {
+      return res.status(400).json({ msg: 'Email verification failed.' })
+    }
+
+    const user = await User.findOne({ email })
+
+    if (user) {
+      sendTokenResponse(user, 200, res)
+    } else {
+      const newUser = await User.create({ email, google: true })
+      sendTokenResponse(newUser, 200, res)
+    }
+  } catch (err) {
+    return res.status(500).json({ msg: err.message })
   }
 }
 

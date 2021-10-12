@@ -10,7 +10,6 @@ import * as Yup from "yup";
 import { MyTextInput, MytextArea } from "../form/myForm";
 export default function EditProfile() {
   const loading = useSelector((state) => state.auth.apiloading);
-  const updateMsg = useSelector((state) => state.auth.user);
   const history = useHistory();
   const dispatch = useDispatch();
 
