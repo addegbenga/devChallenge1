@@ -20,9 +20,9 @@ app.use(morgan('tiny'))
 
 app.use('/v1', require('./src/routes/v1'))
 
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+app.use(express.static(path.join(__dirname, 'build')))
+app.get('/*', function (req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'))
 })
-
-const PORT = 5000 || process.env.PORT
+const PORT = process.env.PORT || 5000
 app.listen(PORT, () => console.log('connected to Localhost'))
