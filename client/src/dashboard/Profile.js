@@ -2,7 +2,9 @@ import React from "react";
 import Navbar from "../nav/Navbar";
 import { Link } from "react-router-dom";
 import avatar from "../assets/avatar.jpg";
+import { useSelector } from "react-redux";
 export default function Profile() {
+  const userDetails = useSelector((state) => state.auth.user);
   return (
     <div>
       <Navbar />
@@ -38,17 +40,27 @@ export default function Profile() {
             </div>
             <div className="flex py-6 border-b justify-between px-3 md:px-8  ">
               <h2 style={{ color: "#828282", fontSize: "13px" }}>NAME</h2>
-              <p className="text-sm"> Xanthe Neal</p>
+              {userDetails ? (
+                <p className="text-sm"> {userDetails.name}</p>
+              ) : (
+                <p className="text-sm"> Add a name</p>
+              )}
             </div>
             <div className="flex border-b py-6 justify-between px-3 md:px-8 ">
               <h2 style={{ color: "#828282", fontSize: "13px" }}>BIO</h2>
-              <p className="text-sm truncate w-44">
-                I am a software developer with intrest with dev challenge
-              </p>
+              {userDetails ? (
+                <p className="text-sm truncate">{userDetails.bio}</p>
+              ) : (
+                <p className="text-sm truncate">
+                  write a short descriptive bio about your self
+                </p>
+              )}
             </div>
             <div className="flex py-6 justify-between border-b px-3 md:px-8 ">
               <h2 style={{ color: "#828282", fontSize: "13px" }}>EMAIL</h2>
-              <p className="text-sm">xanthe.neal@gmail.com</p>
+              {userDetails ? (
+                <p className="text-sm">{userDetails.email}</p>
+              ) : null}
             </div>
             <div className="flex py-6 justify-between border-b px-3 md:px-8 ">
               <h2 style={{ color: "#828282", fontSize: "13px" }}>PASSWORD</h2>

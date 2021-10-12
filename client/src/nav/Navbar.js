@@ -1,12 +1,15 @@
 import React, { Fragment } from "react";
 import logo from "../assets/logo.svg";
 import { Link } from "react-router-dom";
-import { AiFillCaretDown} from "react-icons/ai";
+import { AiFillCaretDown } from "react-icons/ai";
 import { HiUserCircle, HiUsers } from "react-icons/hi";
 import { RiLoginBoxLine } from "react-icons/ri";
 import avatar from "../assets/avatar.jpg";
 import { Popover, Transition } from "@headlessui/react";
+import { useDispatch } from "react-redux";
+import { LOGOUT_USER } from "../actions/types";
 export default function Navbar() {
+  const dispatch = useDispatch();
   return (
     <div className="fixed w-full bg-white z-10 top-0 ">
       <div className="bg-white border-b py-4">
@@ -27,7 +30,9 @@ export default function Navbar() {
                     </div>
                     <div
                       className={`${
-                        open ? "hidden md:block transform rotate-180 transition duration-500" : "hidden md:block transform rotate-360 transition duration-500"
+                        open
+                          ? "hidden md:block transform rotate-180 transition duration-500"
+                          : "hidden md:block transform rotate-360 transition duration-500"
                       }`}
                     >
                       <AiFillCaretDown />
@@ -47,6 +52,7 @@ export default function Navbar() {
                         <div className="flex text-sm items-center rounded mt-3  mr-2 ml-2 p-2 hover:bg-gray-100 transition duration-500 ease-in-out  ">
                           <HiUserCircle size={22} />
                           <Link
+                            to="/profile"
                             style={{ fontSize: "13px" }}
                             className="ml-1.5 "
                           >
@@ -55,15 +61,27 @@ export default function Navbar() {
                         </div>
                         <div className="flex text-sm  mb-1  p-2 ml-2 mr-2 items-center rounded  hover:bg-gray-100 transition duration-500 ease-in-out ">
                           <HiUsers size={19} />
-                          <Link style={{ fontSize: "12px" }} className="ml-1.5">
-                            Group Chat
+                          <Link
+                            to="/edit"
+                            style={{ fontSize: "12px" }}
+                            className="ml-1.5"
+                          >
+                            Edit profile
                           </Link>
                         </div>
                         <div className="flex text-sm text-red-500  mb-3 p-2 ml-2 mr-2 border-t items-center rounded hover:bg-gray-100 transition duration-500 ease-in-out   ">
                           <RiLoginBoxLine size={19} />
-                          <Link style={{ fontSize: "12px" }} className="ml-1.5">
+                          <button
+                            style={{ fontSize: "12px" }}
+                            className="ml-1.5"
+                            onClick={() =>
+                              dispatch({
+                                type: LOGOUT_USER,
+                              })
+                            }
+                          >
                             Logout
-                          </Link>
+                          </button>
                         </div>
                       </div>
                     </Popover.Panel>
