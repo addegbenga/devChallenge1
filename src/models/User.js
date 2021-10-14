@@ -16,14 +16,17 @@ const userModel = new mongoose.Schema(
     },
     bio: String,
     phone: String,
-    avatarUrl: String,
+    avatarUrl: {
+      type: String,
+      default:
+        'https://ik.imagekit.io/devchallenge/NicePng_librarian-png_3702843_zbFMB1T9sc.png?updatedAt=1634166477679'
+    },
     avatarId: String,
     google: {
       type: Boolean,
       default: false
     }
   },
-
   {
     timestamps: true
   }

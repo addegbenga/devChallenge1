@@ -5,6 +5,8 @@ const dotenv = require('dotenv')
 const path = require('path')
 const app = express()
 const CONNECTDB = require('./src/config/db')
+// const path = require('path')
+const expressUpload = require('express-fileupload')
 
 // Load Config
 dotenv.config()
@@ -12,11 +14,14 @@ dotenv.config()
 CONNECTDB()
 
 app.use(express.json())
+// parse urlencoded request body
+app.use(express.urlencoded({ extended: true }))
 
 // enable cors
 app.use(cors())
 app.options('*', cors())
 app.use(morgan('tiny'))
+app.use(expressUpload())
 
 app.use('/v1', require('./src/routes/v1'))
 

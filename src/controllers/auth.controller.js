@@ -2,7 +2,15 @@
 const User = require('../models/User')
 const { sendTokenResponse } = require('../middlewares/utils')
 const bcrypt = require('bcryptjs')
+
 const { google } = require('googleapis')
+const ImageKit = require('imagekit')
+
+const imagekit = new ImageKit({
+  publicKey: process.env.PUBLIC_KEY,
+  privateKey: process.env.PRIVATE_KEY,
+  urlEndpoint: process.env.URL_END_POINT
+})
 
 const client = new google.auth.OAuth2(process.env.GOOGLE_CLIENT_ID)
 
@@ -80,13 +88,59 @@ exports.googleLogin = async (req, res) => {
   }
 }
 
+exports.uploadImage = async (req, res) => {
+  try {
+    const url = await imagekit.upload({
+      file: req.files.image.data,
+      fileName: req.files.image.name
+    })
+    await User.findOneAndUpdate(
+      { _id: req.user.id },
+      {
+        $set: {
+          avatarUrl: url.url
+        }
+      },
+      { new: true }
+    )
+    return res.json({ msg: 'Image upload successfull' })
+  } catch (error) {
+    console.log(error)
+    return res.json(error)
+  }
+}
+
 exports.editUser = async (req, res) => {
   const { ...args } = req.body
-
   const salt = await bcrypt.genSalt(10)
   const newpassword = await bcrypt.hash(args.password, salt)
 
   try {
+    if (req.files) {
+      const url = await imagekit.upload({
+        file: req.files.image.data,
+        fileName: req.files.image.name
+      })
+
+      const user = await User.findOneAndUpdate(
+        { _id: req.user.id },
+        {
+          $set: {
+            name: args.name,
+            password: newpassword,
+            phone: args.phone,
+            bio: args.bio,
+            avatarUrl: url.url
+          }
+        },
+        { new: true }
+      )
+
+      return res.json({
+        msg: 'Profile updated',
+        data: user
+      })
+    }
     const user = await User.findOneAndUpdate(
       { _id: req.user.id },
       {
@@ -94,9 +148,7 @@ exports.editUser = async (req, res) => {
           name: args.name,
           password: newpassword,
           phone: args.phone,
-          bio: args.bio,
-          avatarUrl: args.avatarUrl,
-          avatarId: args.avatarId
+          bio: args.bio
         }
       },
       { new: true }
